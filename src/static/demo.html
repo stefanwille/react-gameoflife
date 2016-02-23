@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/bootstrap.min.css">
+
+  <style type="text/css" media="screen">
+    .headline {
+      margin-bottom: 50px;
+    }
+
+    .controls {
+      margin-bottom: 25px;
+    }
+
+    .controls button {
+      min-width: 60px;
+    }
+    .cells table {
+      border-style: solid;
+      border-width: 1px;
+    }
+    .cells td {
+      width: 20px;
+      height: 20px;
+    }
+
+    .cells td:nth-child(odd) {
+      background-color: black;
+    }
+
+    .cells {
+      margin-bottom: 25px;
+    }
+
+
+    .dimensions input.form-control {
+      width: 80px;
+      margin-right: 10px;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="row headline">
+      <div class="col-md-12 text-center">
+        <h1>Game of Life</h1>
+      </div>
+    </div>
+
+    <div class="row controls">
+      <div class="col-md-5">
+        <form class="form-inline">
+          <button type="submit" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <button type="submit" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-pause"></span>
+          </button>
+          <button type="submit" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-step-forward"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row cells">
+      <div class="col-md-12">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+            </tr>
+          <tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="row dimensions">
+      <div class="col-md-5">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <form class="form-inline">
+              <div class="form-group">
+                <label for="width">Width</label>
+                <input type="number" class="form-control" placeholder="Width" value="10">
+              </div>
+
+              <div class="form-group">
+                <label for="height">Height</label>
+                <input type="number" class="form-control" id="height" placeholder="Height" value="10">
+              </div>
+              <button type="submit" class="btn btn-default">Update</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div> <!-- .container -->
+</body>
+</html>
+
