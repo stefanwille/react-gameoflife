@@ -16,13 +16,13 @@ const GameOfLife = () => {
         <div className='row controls'>
           <div className='col-md-5'>
             <form className='form-inline'>
-              <button type='submit' className='btn btn-default btn-lg'>
+              <button type='submit' className='btn btn-default'>
                 <span className='glyphicon glyphicon-play'></span>
               </button>
-              <button type='submit' className='btn btn-default btn-lg'>
+              <button type='submit' className='btn btn-default'>
                 <span className='glyphicon glyphicon-pause'></span>
               </button>
-              <button type='submit' className='btn btn-default btn-lg'>
+              <button type='submit' className='btn btn-default'>
                 <span className='glyphicon glyphicon-step-forward'></span>
               </button>
             </form>

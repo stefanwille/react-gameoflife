@@ -16,7 +16,8 @@
     }
 
     .controls button {
-      min-width: 60px;
+      min-width: 45px;
+      min-height: 45px;
     }
 
     .cells table {
@@ -39,6 +40,16 @@
     .dimensions input.form-control {
       width: 80px;
       margin-right: 10px;
+    }
+
+    /* Hack, somehow React breaks the Bootstrap CSS */
+
+    form button {
+      margin-right: 4px;
+    }
+
+    form label {
+      margin-right: 3px;
     }
 
   </style>
