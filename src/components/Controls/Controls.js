@@ -9,11 +9,11 @@ let Controls = ({playing, onPlay, onPause, onStep, onRandomize}) => {
   const playOnClick = (event) => onPause(event, playing)
   const playOrPauseButton = playing ? (
     <button type='submit' className='btn btn-default' onClick={playOnClick}>
-      <span className='glyphicon glyphicon-pause'></span>
+      <span className='glyphicon glyphicon-pause'></span> Pause
     </button>
   ) : (
     <button type='submit' className='btn btn-default' onClick={onPlay}>
-      <span className='glyphicon glyphicon-play'></span>
+      <span className='glyphicon glyphicon-play'></span> Play
     </button>
   )
 
@@ -21,12 +21,12 @@ let Controls = ({playing, onPlay, onPause, onStep, onRandomize}) => {
     <div className='row controls'>
       <div className='col-md-5'>
         <form className='form-inline' action='#'>
-          {playOrPauseButton}
           <button type='submit' className='btn btn-default' onClick={onStep}>
-            <span className='glyphicon glyphicon-step-forward'></span>
+            <span className='glyphicon glyphicon-step-forward'></span> Step
           </button>
+          {playOrPauseButton}
           <button type='submit' className='btn btn-default' onClick={onRandomize}>
-            <span className='glyphicon glyphicon-object-align-right'></span>
+            <span className='glyphicon glyphicon-object-align-right'></span> Randomize
           </button>
         </form>
       </div>

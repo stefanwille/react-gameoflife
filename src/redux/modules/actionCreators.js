@@ -7,7 +7,7 @@ export const play = (dispatch) => {
   const thunk = () => {
     const interval = setInterval(() => {
       dispatch(step())
-    }, 1000)
+    }, 800)
 
     dispatch({type: 'PLAY', payload: interval})
   }

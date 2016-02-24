@@ -40,7 +40,7 @@ let Dimensions = ({width, height, onResize}) => {
                   defaultValue={height}
                   ref={heightRef} />
               </div>
-              <button type='submit' className='btn btn-default'>Change Size</button>
+              <button type='submit' className='btn btn-default'>Resize</button>
             </form>
           </div>
         </div>
