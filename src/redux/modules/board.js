@@ -44,8 +44,9 @@ export const makeCells = (width, height) => {
 }
 
 const shouldLiveInNextGeneration = (board, x, y) => {
-  const n = neighbours(board, x, y)
-  return (board.cells[x][y]) ? (n >= 2 && n <= 3) : (n === 3)
+  const alive = board.cells[x][y]
+  const neighbourCount = neighbours(board, x, y)
+  return alive ? (neighbourCount >= 2 && neighbourCount <= 3) : (neighbourCount === 3)
 }
 
 export const neighbours = (board, x, y) => {
