@@ -1,8 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 // import classes from './GameOfLife.scss'
 
-const Controls = () => {
+import {step} from 'redux/modules/actionCreators'
+
+let Controls = ({onStep}) => {
   return (
     <div className='row controls'>
       <div className='col-md-5'>
@@ -13,7 +16,7 @@ const Controls = () => {
           <button type='submit' className='btn btn-default'>
             <span className='glyphicon glyphicon-pause'></span>
           </button>
-          <button type='submit' className='btn btn-default'>
+          <button type='submit' className='btn btn-default' onClick={onStep}>
             <span className='glyphicon glyphicon-step-forward'></span>
           </button>
         </form>
@@ -21,5 +24,16 @@ const Controls = () => {
     </div>
   )
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onStep (event) {
+      event.preventDefault()
+      dispatch(step())
+    }
+  }
+}
+
+Controls = connect(null, mapDispatchToProps)(Controls)
 
 export default Controls
