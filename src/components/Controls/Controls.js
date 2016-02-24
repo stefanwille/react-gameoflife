@@ -6,8 +6,9 @@ import {connect} from 'react-redux'
 import {play, pause, step, randomize} from 'redux/modules/actionCreators'
 
 let Controls = ({playing, onPlay, onPause, onStep, onRandomize}) => {
+  const playOnClick = (event) => onPause(event, playing)
   const playOrPauseButton = playing ? (
-    <button type='submit' className='btn btn-default' onClick={onPause}>
+    <button type='submit' className='btn btn-default' onClick={playOnClick}>
       <span className='glyphicon glyphicon-pause'></span>
     </button>
   ) : (
@@ -43,11 +44,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onPlay (event) {
       event.preventDefault()
-      dispatch(play())
+      dispatch(play(dispatch))
     },
 
-    onPause (event) {
+    onPause (event, interval) {
       event.preventDefault()
+      clearInterval(interval)
       dispatch(pause())
     },
 
