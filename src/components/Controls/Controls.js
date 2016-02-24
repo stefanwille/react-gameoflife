@@ -3,19 +3,24 @@ import {connect} from 'react-redux'
 
 // import classes from './GameOfLife.scss'
 
-import {step, randomize} from 'redux/modules/actionCreators'
+import {play, pause, step, randomize} from 'redux/modules/actionCreators'
 
-let Controls = ({onStep, onRandomize}) => {
+let Controls = ({playing, onPlay, onPause, onStep, onRandomize}) => {
+  const playOrPauseButton = playing ? (
+    <button type='submit' className='btn btn-default' onClick={onPause}>
+      <span className='glyphicon glyphicon-pause'></span>
+    </button>
+  ) : (
+    <button type='submit' className='btn btn-default' onClick={onPlay}>
+      <span className='glyphicon glyphicon-play'></span>
+    </button>
+  )
+
   return (
     <div className='row controls'>
       <div className='col-md-5'>
         <form className='form-inline' action='#'>
-          <button type='submit' className='btn btn-default'>
-            <span className='glyphicon glyphicon-play'></span>
-          </button>
-          <button type='submit' className='btn btn-default'>
-            <span className='glyphicon glyphicon-pause'></span>
-          </button>
+          {playOrPauseButton}
           <button type='submit' className='btn btn-default' onClick={onStep}>
             <span className='glyphicon glyphicon-step-forward'></span>
           </button>
@@ -28,8 +33,24 @@ let Controls = ({onStep, onRandomize}) => {
   )
 }
 
+const mapStateToProps = ({playing}) => {
+  return {
+    playing
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
+    onPlay (event) {
+      event.preventDefault()
+      dispatch(play())
+    },
+
+    onPause (event) {
+      event.preventDefault()
+      dispatch(pause())
+    },
+
     onStep (event) {
       event.preventDefault()
       dispatch(step())
@@ -42,6 +63,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-Controls = connect(null, mapDispatchToProps)(Controls)
+Controls = connect(mapStateToProps, mapDispatchToProps)(Controls)
 
 export default Controls
