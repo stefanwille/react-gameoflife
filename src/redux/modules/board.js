@@ -13,19 +13,18 @@ const makeCells = (width, height) => {
 
 const setCellActionHandler = (state, action) => {
   const {x, y, live} = action.payload
-  const newState = state.slice()
-  newState[x] = state[x].slice()
-  newState[x][y] = live
+  const cells = state.cells.slice()
+  cells[x] = cells[x].slice()
+  cells[x][y] = live
+  const newState = { ...state, cells: cells }
   return newState
 }
 
 const stepActionHandler = (state, action) => {
-  const width = state.length
-  const height = state[0].length
-  const newState = makeCells(width, height)
-  for (let x = 0; x < width; x++) {
-    for (let y = 0; y < width; y++) {
-      newState[x][y] = !state[x][y]
+  const newState = { ...state, cells: makeCells(state.width, state.height) }
+  for (let x = 0; x < state.width; x++) {
+    for (let y = 0; y < state.width; y++) {
+      newState.cells[x][y] = !state.cells[x][y]
     }
   }
   return newState
@@ -41,7 +40,11 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 export default function counterReducer (state, action) {
   if (state === undefined) {
-    state = makeCells(10, 10)
+    state = {
+      cells: makeCells(10, 10),
+      width: 10,
+      height: 10
+    }
   }
 
   const handler = ACTION_HANDLERS[action.type]

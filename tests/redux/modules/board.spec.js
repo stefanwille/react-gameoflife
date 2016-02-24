@@ -1,11 +1,14 @@
 import {setCell, step} from 'redux/modules/actionCreators'
-import {default as cellsReducer} from 'redux/modules/cells'
+import {default as cellsReducer} from 'redux/modules/board'
 
-describe('(Redux Module) cells', function () {
+describe('(Redux Module) board', function () {
   describe('(Reducer)', function () {
-    it('Should initialize with a 2 dimensional array of falses', function () {
-      expect(cellsReducer(undefined, {})).to.be.a('array')
-      expect(cellsReducer(undefined, {}).length).to.equal(10)
+    it('Should initialize with a 2 dimensional array of falses and width/height', function () {
+      const initialState = cellsReducer(undefined, {})
+      expect(initialState).to.be.a('object')
+      expect(initialState.cells.length).to.equal(10)
+      expect(initialState.width).to.equal(10)
+      expect(initialState.height).to.equal(10)
     })
   })
 
@@ -23,9 +26,9 @@ describe('(Redux Module) cells', function () {
   describe('(Action Handler) SET_CELL', function () {
     it('Should set the state of a cell.', function () {
       let state = cellsReducer(undefined, {})
-      expect(state[0][0]).to.equal(false)
+      expect(state.cells[0][0]).to.equal(false)
       state = cellsReducer(state, setCell(0, 0, true))
-      expect(state[0][0]).to.equal(true)
+      expect(state.cells[0][0]).to.equal(true)
     })
   })
 
@@ -42,9 +45,9 @@ describe('(Redux Module) cells', function () {
   describe('(Action Handler) STEP', function () {
     it('Should step forward one generation in game of life.', function () {
       let state = cellsReducer(undefined, {})
-      expect(state[0][0]).to.equal(false)
+      expect(state.cells[0][0]).to.equal(false)
       state = cellsReducer(state, step())
-      expect(state[0][0]).to.equal(true)
+      expect(state.cells[0][0]).to.equal(true)
     })
   })
 })
