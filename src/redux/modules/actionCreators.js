@@ -26,3 +26,9 @@ export const step = () => ({
 export const randomize = () => ({
   type: 'RANDOMIZE'
 })
+
+export const resize = (width, height) => ({
+  type: 'RESIZE',
+  payload: {width, height}
+})
+

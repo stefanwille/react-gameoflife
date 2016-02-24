@@ -70,10 +70,33 @@ const aliveCellsAt = (board, x, y) => {
   return board.cells[x][y] ? 1 : 0
 }
 
+const resizeActionHandler = (state, action) => {
+  const {width, height} = action.payload
+  const cells = makeCells(width, height)
+  const copyWidth = Math.min(width, state.width)
+  const copyHeight = Math.min(height, state.height)
+  for (let x = 0; x < copyWidth; x++) {
+    for (let y = 0; y < copyHeight; y++) {
+      cells[x][y] = state.cells[x][y]
+    }
+  }
+  const newState = {...state, cells: cells, width: width, height: height}
+  return newState
+}
+
+const initialState = () => {
+  return {
+    cells: makeCells(INITIAL_WIDTH, INITIAL_HEIGHT),
+    width: INITIAL_WIDTH,
+    height: INITIAL_HEIGHT
+  }
+}
+
 const ACTION_HANDLERS = {
   SET_CELL: setCellActionHandler,
   RANDOMIZE: randomizeActionHandler,
-  STEP: stepActionHandler
+  STEP: stepActionHandler,
+  RESIZE: resizeActionHandler
 }
 
 // ------------------------------------
@@ -81,11 +104,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 export default function counterReducer (state, action) {
   if (state === undefined) {
-    state = {
-      cells: makeCells(INITIAL_WIDTH, INITIAL_HEIGHT),
-      width: INITIAL_WIDTH,
-      height: INITIAL_HEIGHT
-    }
+    state = initialState()
   }
 
   const handler = ACTION_HANDLERS[action.type]

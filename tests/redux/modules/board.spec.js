@@ -1,4 +1,4 @@
-import {setCell, step, randomize} from 'redux/modules/actionCreators'
+import {setCell, step, randomize, resize} from 'redux/modules/actionCreators'
 import {default as cellsReducer, makeCells, neighbours, INITIAL_WIDTH, INITIAL_HEIGHT} from 'redux/modules/board'
 
 describe('(Redux Module) board', function () {
@@ -90,6 +90,30 @@ describe('(Redux Module) board', function () {
       expect(state.cells[2][1]).to.equal(false)
       expect(state.cells[1][0]).to.equal(true)
       expect(state.cells[1][2]).to.equal(true)
+    })
+  })
+
+  describe('(Action Creator) RESIZE', function () {
+    it('Should be exported as a function.', function () {
+      expect(resize).to.be.a('function')
+    })
+
+    it('Should return an action with type "RESIZE".', function () {
+      expect(resize(10, 10)).to.have.property('type', 'RESIZE')
+      expect(resize(11, 12).payload).to.deep.equal({width: 11, height: 12})
+    })
+  })
+
+  describe('(Action Handler) RESIZE', function () {
+    it('Should change the size of the board.', function () {
+      let state = cellsReducer(undefined, {})
+      expect(state.width).to.equal(INITIAL_WIDTH)
+      expect(state.height).to.equal(INITIAL_HEIGHT)
+      state = cellsReducer(state, resize(11, 12))
+      expect(state.width).to.equal(11)
+      expect(state.height).to.equal(12)
+      expect(state.cells.length).to.equal(11)
+      expect(state.cells[0].length).to.equal(12)
     })
   })
 })
