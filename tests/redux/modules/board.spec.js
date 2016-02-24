@@ -1,5 +1,5 @@
-import {setCell, step} from 'redux/modules/actionCreators'
-import {default as cellsReducer} from 'redux/modules/board'
+import {setCell, step, randomize} from 'redux/modules/actionCreators'
+import {default as cellsReducer, makeCells, neighbours} from 'redux/modules/board'
 
 describe('(Redux Module) board', function () {
   describe('(Reducer)', function () {
@@ -32,6 +32,23 @@ describe('(Redux Module) board', function () {
     })
   })
 
+  describe('(Action Creator) randomize', function () {
+    it('Should be exported as a function.', function () {
+      expect(randomize).to.be.a('function')
+    })
+
+    it('Should return an action with type "RANDOMIZE".', function () {
+      expect(randomize()).to.have.property('type', 'RANDOMIZE')
+    })
+  })
+
+  describe('(Action Handler) RANDOMIZE', function () {
+    it('Should randomize the cells.', function () {
+      let state = cellsReducer(undefined, {})
+      cellsReducer(state, randomize())
+    })
+  })
+
   describe('(Action Creator) step', function () {
     it('Should be exported as a function.', function () {
       expect(step).to.be.a('function')
@@ -42,12 +59,37 @@ describe('(Redux Module) board', function () {
     })
   })
 
+  describe('(Action Handler impl) neighbours', function () {
+    it('Should calculate the numbers of live neighbours', function () {
+      console.log('makeCells', makeCells)
+      const cells = makeCells(10, 10)
+      cells[0][1] = true
+      cells[1][1] = true
+      cells[2][1] = true
+      const board = {
+        cells,
+        width: 10,
+        height: 10
+      }
+      expect(neighbours(board, 0, 1)).to.equal(1)
+      expect(neighbours(board, 1, 1)).to.equal(2)
+      expect(neighbours(board, 2, 1)).to.equal(1)
+    })
+  })
+
   describe('(Action Handler) STEP', function () {
     it('Should step forward one generation in game of life.', function () {
       let state = cellsReducer(undefined, {})
-      expect(state.cells[0][0]).to.equal(false)
+      // Blinker pattern
+      state.cells[0][1] = true
+      state.cells[1][1] = true
+      state.cells[2][1] = true
       state = cellsReducer(state, step())
-      expect(state.cells[0][0]).to.equal(true)
+      expect(state.cells[0][1]).to.equal(false)
+      expect(state.cells[1][1]).to.equal(true)
+      expect(state.cells[2][1]).to.equal(false)
+      expect(state.cells[1][0]).to.equal(true)
+      expect(state.cells[1][2]).to.equal(true)
     })
   })
 })

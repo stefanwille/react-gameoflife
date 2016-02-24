@@ -5,7 +5,7 @@ import React from 'react'
 const Dimensions = () => {
   return (
     <div className='row dimensions'>
-      <div className='col-md-12'>
+      <div className='col-md-4'>
         <div className='panel panel-default'>
           <div className='panel-body'>
 

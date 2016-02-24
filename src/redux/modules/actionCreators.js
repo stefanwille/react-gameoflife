@@ -6,3 +6,7 @@ export const setCell = (x, y, live) => ({
 export const step = () => ({
   type: 'STEP'
 })
+
+export const randomize = () => ({
+  type: 'RANDOMIZE'
+})

@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 
 // import classes from './GameOfLife.scss'
 
-import {step} from 'redux/modules/actionCreators'
+import {step, randomize} from 'redux/modules/actionCreators'
 
-let Controls = ({onStep}) => {
+let Controls = ({onStep, onRandomize}) => {
   return (
     <div className='row controls'>
       <div className='col-md-5'>
@@ -19,6 +19,9 @@ let Controls = ({onStep}) => {
           <button type='submit' className='btn btn-default' onClick={onStep}>
             <span className='glyphicon glyphicon-step-forward'></span>
           </button>
+          <button type='submit' className='btn btn-default' onClick={onRandomize}>
+            <span className='glyphicon glyphicon-object-align-right'></span>
+          </button>
         </form>
       </div>
     </div>
@@ -30,6 +33,11 @@ const mapDispatchToProps = (dispatch) => {
     onStep (event) {
       event.preventDefault()
       dispatch(step())
+    },
+
+    onRandomize (event) {
+      event.preventDefault()
+      dispatch(randomize())
     }
   }
 }
