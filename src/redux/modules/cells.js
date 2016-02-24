@@ -40,11 +40,10 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 export default function counterReducer (state, action) {
-  const handler = ACTION_HANDLERS[action.type]
-
   if (state === undefined) {
     state = makeCells(10, 10)
   }
 
+  const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
 }
