@@ -15,7 +15,7 @@ const GameOfLife = () => {
 
         <div className='row controls'>
           <div className='col-md-5'>
-            <form className='form-inline'>
+            <form className='form-inline' action='#'>
               <button type='submit' className='btn btn-default'>
                 <span className='glyphicon glyphicon-play'></span>
               </button>
@@ -88,21 +88,21 @@ const GameOfLife = () => {
         </div>
 
         <div className='row dimensions'>
-          <div className='col-md-5'>
+          <div className='col-md-12'>
             <div className='panel panel-default'>
               <div className='panel-body'>
 
-                <form className='form-inline'>
+                <form>
                   <div className='form-group'>
                     <label htmlFor='width'>Width</label>
-                    <input type='number' className='form-control' placeholder='Width' value='10' />
+                    <input type='number' className='form-control' id='width' placeholder='Width' defaultValue='10' />
                   </div>
-
                   <div className='form-group'>
                     <label htmlFor='height'>Height</label>
-                    <input type='number' className='form-control' id='height' placeholder='Height' value='10' />
+                    <input type='number' className='form-control' id='height' placeholder='Height' defaultValue='10' />
                   </div>
-                  <button type='submit' className='btn btn-default'>Update</button>
+
+                  <button type='submit' className='btn btn-default'>Change Size</button>
                 </form>
 
               </div>
