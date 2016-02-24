@@ -1,15 +1,5 @@
-export const makeCells = (width, height) => {
-  const cells = []
-  for (let x = 0; x < width; x++) {
-    const row = []
-    cells.push(row)
-    for (let y = 0; y < height; y++) {
-      row.push(false)
-    }
-  }
-
-  return cells
-}
+export const INITIAL_WIDTH = 20
+export const INITIAL_HEIGHT = 20
 
 const setCellActionHandler = (state, action) => {
   const {x, y, live} = action.payload
@@ -38,6 +28,19 @@ const stepActionHandler = (state, action) => {
     }
   }
   return newState
+}
+
+export const makeCells = (width, height) => {
+  const cells = []
+  for (let x = 0; x < width; x++) {
+    const row = []
+    cells.push(row)
+    for (let y = 0; y < height; y++) {
+      row.push(false)
+    }
+  }
+
+  return cells
 }
 
 const shouldLiveInNextGeneration = (board, x, y) => {
@@ -78,9 +81,9 @@ const ACTION_HANDLERS = {
 export default function counterReducer (state, action) {
   if (state === undefined) {
     state = {
-      cells: makeCells(10, 10),
-      width: 10,
-      height: 10
+      cells: makeCells(INITIAL_WIDTH, INITIAL_HEIGHT),
+      width: INITIAL_WIDTH,
+      height: INITIAL_HEIGHT
     }
   }
 

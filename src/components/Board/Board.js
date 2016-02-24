@@ -1,17 +1,20 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import Cell from 'components/Cell/Cell'
+import {setCell} from 'redux/modules/actionCreators'
+
 // import classes from './GameOfLife.scss'
 
-let Board = ({cells, width, height}) => {
+let Board = ({cells, width, height, onToggleCell}) => {
   const rowsWithCells = []
+
   for (let y = 0; y < height; y++) {
     const cellsElements = []
     for (let x = 0; x < width; x++) {
-      const cellClassName = cells[x][y] ? 'alive' : 'dead'
       const cellKey = `${x}-${y}`
       cellsElements.push(
-        <td key={cellKey} className={cellClassName}></td>
+        <Cell key={cellKey} x={x} y={y} alive={cells[x][y]} onClick={onToggleCell} />
       )
     }
     rowsWithCells.push(
@@ -38,6 +41,14 @@ const mapStateToProps = (state) => {
   return {cells, width, height}
 }
 
-Board = connect(mapStateToProps, null)(Board)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onToggleCell (x, y, alive) {
+      dispatch(setCell(x, y, !alive))
+    }
+  }
+}
+
+Board = connect(mapStateToProps, mapDispatchToProps)(Board)
 
 export default Board
