@@ -12,9 +12,11 @@ let Board = ({cells, width, height, onToggleCell}) => {
   for (let y = 0; y < height; y++) {
     const cellsElements = []
     for (let x = 0; x < width; x++) {
+      const alive = cells[x][y]
       const cellKey = `${x}-${y}`
+      const onClickHandler = () => onToggleCell(x, y, alive)
       cellsElements.push(
-        <Cell key={cellKey} x={x} y={y} alive={cells[x][y]} onClick={onToggleCell} />
+        <Cell key={cellKey} x={x} y={y} alive={alive} onClick={onClickHandler} />
       )
     }
     rowsWithCells.push(

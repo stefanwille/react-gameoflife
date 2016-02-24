@@ -14,7 +14,7 @@ const randomizeActionHandler = (state, action) => {
   const newState = { ...state, cells: makeCells(state.width, state.height) }
   for (let x = 0; x < state.width; x++) {
     for (let y = 0; y < state.width; y++) {
-      newState.cells[x][y] = Math.random() > 0.6
+      newState.cells[x][y] = Math.random() > 0.8
     }
   }
   return newState
