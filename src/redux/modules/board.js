@@ -1,5 +1,5 @@
-export const INITIAL_WIDTH = 20
-export const INITIAL_HEIGHT = 20
+export const INITIAL_WIDTH = 30
+export const INITIAL_HEIGHT = 30
 
 const setCellActionHandler = (state, action) => {
   const {x, y, live} = action.payload
@@ -13,7 +13,7 @@ const setCellActionHandler = (state, action) => {
 const randomizeActionHandler = (state, action) => {
   const newState = { ...state, cells: makeCells(state.width, state.height) }
   for (let x = 0; x < state.width; x++) {
-    for (let y = 0; y < state.width; y++) {
+    for (let y = 0; y < state.height; y++) {
       newState.cells[x][y] = Math.random() > 0.8
     }
   }
