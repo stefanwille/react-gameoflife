@@ -20,6 +20,10 @@ const randomizeActionHandler = (state, action) => {
   return newState
 }
 
+const clearActionHandler = (state, action) => {
+  return { ...state, cells: makeCells(state.width, state.height) }
+}
+
 const stepActionHandler = (state, action) => {
   const newState = { ...state, cells: makeCells(state.width, state.height) }
   for (let x = 0; x < state.width; x++) {
@@ -96,7 +100,8 @@ const ACTION_HANDLERS = {
   SET_CELL: setCellActionHandler,
   RANDOMIZE: randomizeActionHandler,
   STEP: stepActionHandler,
-  RESIZE: resizeActionHandler
+  RESIZE: resizeActionHandler,
+  CLEAR: clearActionHandler
 }
 
 // ------------------------------------

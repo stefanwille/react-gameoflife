@@ -1,4 +1,4 @@
-import {setCell, step, randomize, resize} from 'redux/modules/actionCreators'
+import {setCell, step, randomize, resize, clear} from 'redux/modules/actionCreators'
 import {default as cellsReducer, makeCells, neighbours, INITIAL_WIDTH, INITIAL_HEIGHT} from 'redux/modules/board'
 
 describe('(Redux Module) board', function () {
@@ -46,6 +46,25 @@ describe('(Redux Module) board', function () {
     it('Should randomize the cells.', function () {
       let state = cellsReducer(undefined, {})
       cellsReducer(state, randomize())
+    })
+  })
+
+  describe('(Action Creator) clear', function () {
+    it('Should be exported as a function.', function () {
+      expect(clear).to.be.a('function')
+    })
+
+    it('Should return an action with type "CLEAR".', function () {
+      expect(clear()).to.have.property('type', 'CLEAR')
+    })
+  })
+
+  describe('(Action Handler) CLEAR', function () {
+    it('Should randomize the cells.', function () {
+      let state = cellsReducer(undefined, {})
+      state.cells[0][0] = true
+      state = cellsReducer(state, clear())
+      expect(state.cells[0][0]).to.equal(false)
     })
   })
 

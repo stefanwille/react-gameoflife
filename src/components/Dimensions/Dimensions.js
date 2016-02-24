@@ -5,7 +5,6 @@ import {resize} from 'redux/modules/actionCreators'
 // import classes from './Dimensions.scss'
 
 let Dimensions = ({width, height, onResize}) => {
-  console.log("width", width, "height", height)
   let widthNode
   let heightNode
   const widthRef = (node) => { widthNode = node }
@@ -58,7 +57,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onResize (widthString, heightString) {
-      console.log("onresize")
       const width = parseInt(widthString)
       const height = parseInt(heightString)
       if (isNaN(width) || isNaN(height)) {

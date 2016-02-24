@@ -32,3 +32,7 @@ export const resize = (width, height) => ({
   payload: {width, height}
 })
 
+export const clear = () => ({
+  type: 'CLEAR'
+})
+

@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 
 // import classes from './GameOfLife.scss'
 
-import {play, pause, step, randomize} from 'redux/modules/actionCreators'
+import {play, pause, step, randomize, clear} from 'redux/modules/actionCreators'
 
-let Controls = ({playing, onPlay, onPause, onStep, onRandomize}) => {
+let Controls = ({playing, onPlay, onPause, onStep, onRandomize, onClear}) => {
   const playOnClick = (event) => onPause(event, playing)
   const playOrPauseButton = playing ? (
     <button type='submit' className='btn btn-default' onClick={playOnClick}>
@@ -27,6 +27,9 @@ let Controls = ({playing, onPlay, onPause, onStep, onRandomize}) => {
           {playOrPauseButton}
           <button type='submit' className='btn btn-default' onClick={onRandomize}>
             <span className='glyphicon glyphicon-repeat'></span> Randomize
+          </button>
+          <button type='submit' className='btn btn-default' onClick={onClear}>
+            <span className='glyphicon glyphicon-remove'></span> Clear
           </button>
         </form>
       </div>
@@ -61,6 +64,11 @@ const mapDispatchToProps = (dispatch) => {
     onRandomize (event) {
       event.preventDefault()
       dispatch(randomize())
+    },
+
+    onClear (event) {
+      event.preventDefault()
+      dispatch(clear())
     }
   }
 }
