@@ -10,7 +10,7 @@ const GameOfLife = () => {
     <div className={classes.gameOfLife}>
 
       <div className='row headline'>
-        <div className='col-md-12 text-center'>
+        <div className='col-md-12'>
           <h1>Game of Life</h1>
         </div>
       </div>
