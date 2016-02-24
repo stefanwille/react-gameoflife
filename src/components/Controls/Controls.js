@@ -26,7 +26,7 @@ let Controls = ({playing, onPlay, onPause, onStep, onRandomize}) => {
           </button>
           {playOrPauseButton}
           <button type='submit' className='btn btn-default' onClick={onRandomize}>
-            <span className='glyphicon glyphicon-object-align-right'></span> Randomize
+            <span className='glyphicon glyphicon-repeat'></span> Randomize
           </button>
         </form>
       </div>
