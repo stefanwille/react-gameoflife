@@ -25,13 +25,16 @@ const clearActionHandler = (state, action) => {
 }
 
 const stepActionHandler = (state, action) => {
-  const newState = { ...state, cells: makeCells(state.width, state.height) }
-  for (let x = 0; x < state.width; x++) {
-    for (let y = 0; y < state.width; y++) {
-      newState.cells[x][y] = shouldLiveInNextGeneration(state, x, y)
+  const board = state
+  const {width, height} = board
+  const newCells = makeCells(width, height)
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < width; y++) {
+      newCells[x][y] = shouldLiveInNextGeneration(board, x, y)
     }
   }
-  return newState
+  const newBoard = {...board, cells: newCells}
+  return newBoard
 }
 
 export const makeCells = (width, height) => {
