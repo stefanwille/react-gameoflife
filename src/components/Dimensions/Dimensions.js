@@ -1,18 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {resize} from 'redux/modules/actionCreators'
+import {resize, setSpeed} from 'redux/modules/actionCreators'
 
 // import classes from './Dimensions.scss'
 
-let Dimensions = ({width, height, onResize}) => {
+let Dimensions = ({width, height, speed, onResize, onSpeedChange}) => {
   let widthNode
   let heightNode
+  let speedNode
   const widthRef = (node) => { widthNode = node }
   const heightRef = (node) => { heightNode = node }
+  const speedRef = (node) => { speedNode = node }
   const handleSubmit = (event) => {
     event.preventDefault()
     onResize(widthNode.value, heightNode.value)
   }
+  const handleSpeedChange = (event) => {
+    onSpeedChange(speedNode.value)
+  }
+
+  console.log('Dimensions speed', speed)
 
   return (
     <div className='row dimensions'>
@@ -45,13 +52,32 @@ let Dimensions = ({width, height, onResize}) => {
         </div>
       </div>
 
+      <div className='col-md-4'>
+        <div className='panel panel-default'>
+          <div className='panel-body'>
+            <form className='form-inline'>
+              <div className='form-group'>
+                <label htmlFor='width'>Speed</label>
+                <input type='range'
+                  className='form-control'
+                  defaultValue={speed}
+                  min={1}
+                  max={100}
+                  onChange={handleSpeedChange}
+                  ref={speedRef} />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }
 
 const mapStateToProps = (state) => {
-  const {width, height} = state.board
-  return {width, height}
+  const {board: {width, height}, speed} = state
+  return {width, height, speed}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -65,6 +91,11 @@ const mapDispatchToProps = (dispatch) => {
       if (width > 0 && height > 0) {
         dispatch(resize(width, height))
       }
+    },
+
+    onSpeedChange (speedString) {
+      const speed = parseInt(speedString)
+      dispatch(setSpeed(speed))
     }
   }
 }

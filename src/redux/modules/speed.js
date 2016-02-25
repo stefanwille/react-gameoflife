@@ -1,4 +1,4 @@
-export const INITIAL_SPEED = 100
+export const INITIAL_SPEED = 50
 
 const setSpeed = (state, action) => {
   return action.payload

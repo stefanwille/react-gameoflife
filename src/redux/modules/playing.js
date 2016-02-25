@@ -1,9 +1,9 @@
 const play = (state, action) => {
-  return action.payload
+  return true
 }
 
 const pause = (state, action) => {
-  return null
+  return false
 }
 
 const ACTION_HANDLERS = {
@@ -16,7 +16,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 export default function playingReducer (state, action) {
   if (state === undefined) {
-    state = null
+    state = false
   }
 
   const handler = ACTION_HANDLERS[action.type]

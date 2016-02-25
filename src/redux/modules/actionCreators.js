@@ -3,20 +3,18 @@ export const setCell = (x, y, live) => ({
   payload: {x, y, live}
 })
 
-export const play = (dispatch) => {
-  const thunk = () => {
-    const interval = setInterval(() => {
-      dispatch(step())
-    }, 800)
-
-    dispatch({type: 'PLAY', payload: interval})
-  }
-
-  return thunk
-}
+export const play = () => ({
+  type: 'PLAY',
+  payload: true
+})
 
 export const pause = () => ({
   type: 'PAUSE'
+})
+
+export const setSpeed = (speed) => ({
+  type: 'SET_SPEED',
+  payload: speed
 })
 
 export const step = () => ({
@@ -34,8 +32,4 @@ export const resize = (width, height) => ({
 
 export const clear = () => ({
   type: 'CLEAR'
-})
-
-export const setSpeed = (speed) => ({
-  type: 'SET_SPEED', payload: speed
 })

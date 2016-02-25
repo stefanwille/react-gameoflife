@@ -5,14 +5,15 @@ import {connect} from 'react-redux'
 
 import {play, pause, step, randomize, clear} from 'redux/modules/actionCreators'
 
-let Controls = ({playing, onPlay, onPause, onStep, onRandomize, onClear}) => {
-  const playOnClick = (event) => onPause(event, playing)
+let Controls = ({playing, speed, onPlay, onPause, onStep, onRandomize, onClear}) => {
+  const handlePlayOnClick = (event) => onPlay(event, speed)
+  const handlePauseOnClick = (event) => onPause(event, playing)
   const playOrPauseButton = playing ? (
-    <a type='submit' className='btn btn-default' onClick={playOnClick}>
+    <a type='submit' className='btn btn-default' onClick={handlePauseOnClick}>
       <span className='glyphicon glyphicon-pause'></span> Pause
     </a>
   ) : (
-    <a type='submit' className='btn btn-default' onClick={onPlay}>
+    <a type='submit' className='btn btn-default' onClick={handlePlayOnClick}>
       <span className='glyphicon glyphicon-play'></span> Play
     </a>
   )
@@ -37,22 +38,22 @@ let Controls = ({playing, onPlay, onPause, onStep, onRandomize, onClear}) => {
   )
 }
 
-const mapStateToProps = ({playing}) => {
+const mapStateToProps = ({playing, speed}) => {
   return {
-    playing
+    playing,
+    speed
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPlay (event) {
+    onPlay () {
       event.preventDefault()
-      dispatch(play(dispatch))
+      dispatch(play())
     },
 
-    onPause (event, interval) {
+    onPause () {
       event.preventDefault()
-      clearInterval(interval)
       dispatch(pause())
     },
 
