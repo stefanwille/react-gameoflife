@@ -8,29 +8,29 @@ import {play, pause, step, randomize, clear} from 'redux/modules/actionCreators'
 let Controls = ({playing, onPlay, onPause, onStep, onRandomize, onClear}) => {
   const playOnClick = (event) => onPause(event, playing)
   const playOrPauseButton = playing ? (
-    <button type='submit' className='btn btn-default' onClick={playOnClick}>
+    <a type='submit' className='btn btn-default' onClick={playOnClick}>
       <span className='glyphicon glyphicon-pause'></span> Pause
-    </button>
+    </a>
   ) : (
-    <button type='submit' className='btn btn-default' onClick={onPlay}>
+    <a type='submit' className='btn btn-default' onClick={onPlay}>
       <span className='glyphicon glyphicon-play'></span> Play
-    </button>
+    </a>
   )
 
   return (
     <div className='row controls'>
       <div className='col-md-5'>
         <form className='form-inline' action='#'>
-          <button type='submit' className='btn btn-default' onClick={onStep}>
+          <a type='submit' className='btn btn-default' onClick={onStep}>
             <span className='glyphicon glyphicon-step-forward'></span> Step
-          </button>
+          </a>
           {playOrPauseButton}
-          <button type='submit' className='btn btn-default' onClick={onRandomize}>
+          <a type='submit' className='btn btn-default' onClick={onRandomize}>
             <span className='glyphicon glyphicon-repeat'></span> Randomize
-          </button>
-          <button type='submit' className='btn btn-default' onClick={onClear}>
+          </a>
+          <a type='submit' className='btn btn-default' onClick={onClear}>
             <span className='glyphicon glyphicon-remove'></span> Clear
-          </button>
+          </a>
         </form>
       </div>
     </div>
