@@ -36,3 +36,6 @@ export const clear = () => ({
   type: 'CLEAR'
 })
 
+export const setSpeed = (speed) => ({
+  type: 'SET_SPEED', payload: speed
+})
