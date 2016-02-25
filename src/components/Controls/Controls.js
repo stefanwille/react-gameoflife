@@ -22,10 +22,10 @@ let Controls = ({playing, speed, onPlay, onPause, onStep, onRandomize, onClear})
     <div className='row controls'>
       <div className='col-md-5'>
         <form className='form-inline' action='#'>
+          {playOrPauseButton}
           <a type='submit' className='btn btn-default' onClick={onStep}>
             <span className='glyphicon glyphicon-step-forward'></span> Step
           </a>
-          {playOrPauseButton}
           <a type='submit' className='btn btn-default' onClick={onRandomize}>
             <span className='glyphicon glyphicon-repeat'></span> Randomize
           </a>
