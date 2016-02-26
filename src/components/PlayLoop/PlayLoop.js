@@ -5,14 +5,18 @@ import {connect} from 'react-redux'
 import {step} from 'redux/modules/actionCreators'
 
 class PlayLoop extends React.Component {
+  constructor () {
+    super()
+    this.state = { interval: null }
+  }
+
   componentDidMount () {
     const {playing, speed} = this.props
     this.updatePlaying(playing, speed)
   }
 
-  constructor () {
-    super()
-    this.state = { interval: null }
+  componentWillUnmount () {
+    this.pause()
   }
 
   componentWillReceiveProps (nextProps) {
