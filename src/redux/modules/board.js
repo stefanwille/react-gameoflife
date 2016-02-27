@@ -29,7 +29,7 @@ const stepActionHandler = (state, action) => {
   const {width, height} = board
   const newCells = makeCells(width, height)
   for (let x = 0; x < width; x++) {
-    for (let y = 0; y < width; y++) {
+    for (let y = 0; y < height; y++) {
       newCells[x][y] = shouldLiveInNextGeneration(board, x, y)
     }
   }
