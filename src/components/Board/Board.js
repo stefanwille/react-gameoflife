@@ -10,17 +10,17 @@ let Board = ({cells, width, height, onToggleCell}) => {
   const rowsWithCells = []
 
   for (let y = 0; y < height; y++) {
-    const cellsElements = []
+    const cellElements = []
     for (let x = 0; x < width; x++) {
       const alive = cells[x][y]
       const cellKey = `${x}-${y}`
       const onClickHandler = () => onToggleCell(x, y, alive)
-      cellsElements.push(
+      cellElements.push(
         <Cell key={cellKey} x={x} y={y} alive={alive} onClick={onClickHandler} />
       )
     }
     rowsWithCells.push(
-      <tr key={y}>{cellsElements}</tr>
+      <tr key={y}>{cellElements}</tr>
     )
   }
 
@@ -32,7 +32,6 @@ let Board = ({cells, width, height, onToggleCell}) => {
             {rowsWithCells}
           </tbody>
         </table>
-
       </div>
     </div>
   )
