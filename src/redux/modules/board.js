@@ -53,6 +53,10 @@ export const makeCells = (width, height) => {
 const shouldLiveInNextGeneration = (board, x, y) => {
   const alive = board.cells[x][y]
   const neighbourCount = neighbours(board, x, y)
+  return shouldCellLiveInNextGeneration(alive, neighbourCount)
+}
+
+const shouldCellLiveInNextGeneration = (alive, neighbourCount) => {
   return alive ? (neighbourCount >= 2 && neighbourCount <= 3) : (neighbourCount === 3)
 }
 
@@ -110,7 +114,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export default function counterReducer (state, action) {
+export default function boardReducer (state, action) {
   if (state === undefined) {
     state = initialState()
   }
