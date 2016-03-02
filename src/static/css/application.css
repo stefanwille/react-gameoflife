@@ -1,0 +1,65 @@
+.controls {
+  margin-bottom: 25px;
+}
+
+.controls .btn {
+  min-width: 45px;
+  margin-right: 4px;
+}
+
+.cells table {
+  border-style: solid;
+  border-width: 1px;
+}
+.cells td {
+  width: 20px;
+  height: 20px;
+}
+
+.cells td.alive {
+  background-color: black;
+}
+
+.cells td.dead {
+  background-color: white;
+}
+
+.cells {
+  margin-bottom: 25px;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cells .alive {
+  animation-duration: 0.05s;
+  animation-name: fadeIn;
+}
+
+.dimensions input.form-control {
+  width: 80px;
+  margin-right: 10px;
+}
+
+.dimensions input[type='range'] {
+  min-width: 200px;
+}
+
+.dimensions label {
+  margin-right: 7px;
+}
+
+
+/* Hack, somehow React breaks the Bootstrap CSS */
+
+form label {
+  margin-right: 3px;
+}
+
