@@ -60,8 +60,10 @@ let Dimensions = ({width, height, speed, onResize, onSpeedChange}) => {
         <div className='panel panel-default'>
           <div className='panel-body'>
             <form className='form-inline'>
-              <div className='form-group'>
+              <div className='form-group speed'>
                 <label htmlFor='width'>Speed</label>
+                {' '}
+                <p className='form-control-static'>{speed}</p>
                 {' '}
                 <input type='range'
                   className='form-control'

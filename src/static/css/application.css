@@ -48,5 +48,12 @@
 
 .dimensions input[type='range'] {
   min-width: 200px;
+  height: 22px;
 }
+
+.dimensions .speed p.form-control-static {
+  min-width: 28px;
+  text-align: right;
+}
+
 
