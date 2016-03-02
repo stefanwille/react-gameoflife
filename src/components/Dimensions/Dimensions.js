@@ -30,6 +30,7 @@ let Dimensions = ({width, height, speed, onResize, onSpeedChange}) => {
             <form className='form-inline' onSubmit={handleSubmit} >
               <div className='form-group'>
                 <label htmlFor='width'>Width</label>
+                {' '}
                 <input type='number'
                   className='form-control'
                   id='width'
@@ -37,8 +38,10 @@ let Dimensions = ({width, height, speed, onResize, onSpeedChange}) => {
                   defaultValue={width}
                   ref={widthRef} />
               </div>
+              {' '}
               <div className='form-group'>
                 <label htmlFor='height'>Height</label>
+                {' '}
                 <input type='number'
                   className='form-control'
                   id='height'
@@ -46,6 +49,7 @@ let Dimensions = ({width, height, speed, onResize, onSpeedChange}) => {
                   defaultValue={height}
                   ref={heightRef} />
               </div>
+              {' '}
               <button type='submit' className='btn btn-default'>Resize</button>
             </form>
           </div>
@@ -58,6 +62,7 @@ let Dimensions = ({width, height, speed, onResize, onSpeedChange}) => {
             <form className='form-inline'>
               <div className='form-group'>
                 <label htmlFor='width'>Speed</label>
+                {' '}
                 <input type='range'
                   className='form-control'
                   defaultValue={speed}

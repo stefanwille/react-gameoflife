@@ -4,7 +4,6 @@
 
 .controls .btn {
   min-width: 45px;
-  margin-right: 4px;
 }
 
 .cells table {
@@ -45,21 +44,9 @@
 
 .dimensions input.form-control {
   width: 80px;
-  margin-right: 10px;
 }
 
 .dimensions input[type='range'] {
   min-width: 200px;
-}
-
-.dimensions label {
-  margin-right: 7px;
-}
-
-
-/* Hack, somehow React breaks the Bootstrap CSS */
-
-form label {
-  margin-right: 3px;
 }
 
