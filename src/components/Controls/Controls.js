@@ -8,6 +8,10 @@ import {play, pause, step, randomize, clear} from 'redux/modules/actionCreators'
 let Controls = ({playing, speed, onPlay, onPause, onStep, onRandomize, onClear}) => {
   const handlePlayOnClick = (event) => onPlay(event, speed)
   const handlePauseOnClick = (event) => onPause(event, playing)
+  const handlePatternSelected = (event) => {
+    console.log(event.target.value)
+  }
+
   const playOrPauseButton = playing ? (
     <a type='submit' className='btn btn-default' onClick={handlePauseOnClick}>
       <span className='glyphicon glyphicon-pause'></span> Pause
@@ -31,6 +35,14 @@ let Controls = ({playing, speed, onPlay, onPause, onStep, onRandomize, onClear})
           <a type='submit' className='btn btn-default' onClick={onRandomize}>
             <span className='glyphicon glyphicon-repeat'></span> Randomize
           </a>
+          {' '}
+          <select className='form-control' onChange={handlePatternSelected}>
+            <option value={1}>Pattern</option>
+            <option value='glider'>Glider</option>
+            <option value={3}></option>
+            <option value={4}></option>
+            <option value={5}></option>
+          </select>
           {' '}
           <a type='submit' className='btn btn-default' onClick={onClear}>
             <span className='glyphicon glyphicon-remove'></span> Clear
