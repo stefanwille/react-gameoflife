@@ -1,55 +1,80 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
 import Cell from 'components/Cell/Cell'
-import {setCell} from 'redux/modules/actionCreators'
+import {setCell, setDrawingCell} from 'redux/modules/actionCreators'
 
 // import classes from './GameOfLife.scss'
 
-let Board = ({cells, width, height, onToggleCell}) => {
-  const rowsWithCells = []
+class BoardPresentation extends React.Component {
+  static propTypes = {
+    cells: PropTypes.array.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    drawingCell: PropTypes.bool.isRequired,
+    onStartDrawing: PropTypes.func.isRequired,
+    onDraw: PropTypes.func.isRequired
+  };
 
-  for (let y = 0; y < height; y++) {
-    const cellElements = []
-    for (let x = 0; x < width; x++) {
-      const alive = cells[x][y]
-      const cellKey = `${x}-${y}`
-      const onClickHandler = () => onToggleCell(x, y, alive)
-      cellElements.push(
-        <Cell key={cellKey} x={x} y={y} alive={alive} onClick={onClickHandler} />
+  render () {
+    const {cells, width, height, drawingCell, onStartDrawing, onDraw} = this.props
+    const rowsWithCells = []
+
+    for (let y = 0; y < height; y++) {
+      const cellElements = []
+      for (let x = 0; x < width; x++) {
+        const alive = cells[x][y]
+        const key = x*10000+y
+        cellElements.push(
+          <Cell
+            key={key}
+            x={x}
+            y={y}
+            alive={alive}
+            drawingCell={drawingCell}
+            onStartDrawing={onStartDrawing}
+            onDraw={onDraw}
+          />
+        )
+      }
+      rowsWithCells.push(
+        <tr key={y}>{cellElements}</tr>
       )
     }
-    rowsWithCells.push(
-      <tr key={y}>{cellElements}</tr>
+
+    return (
+      <div className='row cells'>
+        <div className='col-md-12'>
+          <table>
+            <tbody>
+              {rowsWithCells}
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
-
-  return (
-    <div className='row cells'>
-      <div className='col-md-12'>
-        <table>
-          <tbody>
-            {rowsWithCells}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  )
 }
 
 const mapStateToProps = (state) => {
   const {cells, width, height} = state.board
-  return {cells, width, height}
+  const drawingCell = state.drawing
+  return {cells, width, height, drawingCell}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onToggleCell (x, y, alive) {
-      dispatch(setCell(x, y, !alive))
+    onStartDrawing (x, y, drawingCell) {
+      dispatch(setDrawingCell(drawingCell))
+      dispatch(setCell(x, y, drawingCell))
+    },
+
+    onDraw (x, y, drawingCell) {
+      dispatch(setCell(x, y, drawingCell))
     }
   }
 }
 
-Board = connect(mapStateToProps, mapDispatchToProps)(Board)
+const Board = connect(mapStateToProps, mapDispatchToProps)(BoardPresentation)
 
 export default Board

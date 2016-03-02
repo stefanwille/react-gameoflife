@@ -33,3 +33,8 @@ export const resize = (width, height) => ({
 export const clear = () => ({
   type: 'CLEAR'
 })
+
+export const setDrawingCell = (alive) => ({
+  type: 'SET_DRAWING_CELL',
+  payload: alive
+})
