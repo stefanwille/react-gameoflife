@@ -11,9 +11,11 @@ class Cell extends React.Component {
   }
 
   render () {
-    const className = this.props.alive ? 'alive' : 'dead'
     return (
-      <td className={className} onMouseDown={this.handleMouseDown} onMouseEnter={this.handleMouseEnter}></td>
+      <td
+        className={this.props.alive ? 'alive' : 'dead'}
+        onMouseDown={this.handleMouseDown}
+        onMouseEnter={this.handleMouseEnter} />
     )
   }
 
