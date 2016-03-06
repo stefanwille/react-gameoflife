@@ -1,85 +1,88 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {resize, setSpeed} from 'redux/modules/actionCreators'
 
 // import classes from './Dimensions.scss'
 
-let Dimensions = ({width, height, speed, onResize, onSpeedChange}) => {
-  let widthNode
-  let heightNode
-  let speedNode
-  const widthRef = (node) => { widthNode = node }
-  const heightRef = (node) => { heightNode = node }
-  const speedRef = (node) => { speedNode = node }
-  const handleSubmit = (event) => {
+class DimensionsPresentation extends React.Component {
+  static propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    speed: PropTypes.number.isRequired,
+    onResize: PropTypes.func.isRequired,
+    onSpeedChange: PropTypes.func.isRequired
+  }
+
+  render () {
+    return (
+      <div className='row dimensions'>
+
+        <div className='col-md-5'>
+          <div className='panel panel-default'>
+            <div className='panel-body'>
+              <form className='form-inline' onSubmit={this.handleSubmit} >
+                <div className='form-group'>
+                  <label htmlFor='width'>Width</label>
+                  {' '}
+                  <input type='number'
+                    className='form-control'
+                    id='width'
+                    placeholder='Width'
+                    defaultValue={this.props.width}
+                    ref={(ref) => { this.widthRef = ref }} />
+                </div>
+                {' '}
+                <div className='form-group'>
+                  <label htmlFor='height'>Height</label>
+                  {' '}
+                  <input type='number'
+                    className='form-control'
+                    id='height'
+                    placeholder='Height'
+                    defaultValue={this.props.height}
+                    ref={(ref) => { this.heightRef = ref }} />
+                </div>
+                {' '}
+                <button type='submit' className='btn btn-default'>Resize</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div className='col-md-4'>
+          <div className='panel panel-default'>
+            <div className='panel-body'>
+              <form className='form-inline'>
+                <div className='form-group speed'>
+                  <label htmlFor='width'>Speed</label>
+                  {' '}
+                  <p className='form-control-static'>{this.props.speed}</p>
+                  {' '}
+                  <input type='range'
+                    className='form-control'
+                    defaultValue={this.props.speed}
+                    min={1}
+                    max={100}
+                    onChange={this.handleSpeedChange}
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    )
+  }
+
+  handleSubmit = (event) => {
     event.preventDefault()
-    onResize(widthNode.value, heightNode.value)
-  }
-  const handleSpeedChange = (event) => {
-    onSpeedChange(speedNode.value)
+    this.props.onResize(this.widthRef.value, this.heightRef.value)
   }
 
-  console.log('Dimensions speed', speed)
-
-  return (
-    <div className='row dimensions'>
-
-      <div className='col-md-5'>
-        <div className='panel panel-default'>
-          <div className='panel-body'>
-            <form className='form-inline' onSubmit={handleSubmit} >
-              <div className='form-group'>
-                <label htmlFor='width'>Width</label>
-                {' '}
-                <input type='number'
-                  className='form-control'
-                  id='width'
-                  placeholder='Width'
-                  defaultValue={width}
-                  ref={widthRef} />
-              </div>
-              {' '}
-              <div className='form-group'>
-                <label htmlFor='height'>Height</label>
-                {' '}
-                <input type='number'
-                  className='form-control'
-                  id='height'
-                  placeholder='Height'
-                  defaultValue={height}
-                  ref={heightRef} />
-              </div>
-              {' '}
-              <button type='submit' className='btn btn-default'>Resize</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div className='col-md-4'>
-        <div className='panel panel-default'>
-          <div className='panel-body'>
-            <form className='form-inline'>
-              <div className='form-group speed'>
-                <label htmlFor='width'>Speed</label>
-                {' '}
-                <p className='form-control-static'>{speed}</p>
-                {' '}
-                <input type='range'
-                  className='form-control'
-                  defaultValue={speed}
-                  min={1}
-                  max={100}
-                  onChange={handleSpeedChange}
-                  ref={speedRef} />
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  )
+  handleSpeedChange = (event) => {
+    this.props.onSpeedChange(event.target.value)
+  }
 }
 
 const mapStateToProps = (state) => {
@@ -107,6 +110,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-Dimensions = connect(mapStateToProps, mapDispatchToProps)(Dimensions)
+const Dimensions = connect(mapStateToProps, mapDispatchToProps)(DimensionsPresentation)
 
 export default Dimensions
