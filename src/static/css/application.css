@@ -18,6 +18,7 @@
   border-style: solid;
   border-width: 1px;
 }
+
 .cells td {
   width: 20px;
   height: 20px;
@@ -25,10 +26,6 @@
 
 .cells td.alive {
   background-color: black;
-}
-
-.cells td.dead {
-  background-color: white;
 }
 
 .cells {

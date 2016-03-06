@@ -13,7 +13,7 @@ class Cell extends React.Component {
   render () {
     return (
       <td
-        className={this.props.alive ? 'alive' : 'dead'}
+        className={this.props.alive ? 'alive' : undefined}
         onMouseDown={this.handleMouseDown}
         onMouseEnter={this.handleMouseEnter} />
     )
