@@ -5,6 +5,12 @@ import {connect} from 'react-redux'
 import {step} from 'redux/modules/actionCreators'
 
 class PlayLoop extends React.Component {
+  static propTypes = {
+    playing: PropTypes.bool.isRequired,
+    speed: PropTypes.number.isRequired,
+    onStep: PropTypes.func.isRequired
+  };
+
   constructor () {
     super()
     this.state = { interval: null }
@@ -42,9 +48,7 @@ class PlayLoop extends React.Component {
       return
     }
     const delayInMs = (100-speed) * 20
-    const interval = setInterval(() => {
-      this.props.onStep()
-    }, delayInMs)
+    const interval = setInterval(this.props.onStep, delayInMs)
     this.setState({ interval: interval })
   }
 
@@ -54,12 +58,6 @@ class PlayLoop extends React.Component {
       </div>
     )
   }
-
-  static propTypes = {
-    playing: PropTypes.bool.isRequired,
-    speed: PropTypes.number.isRequired,
-    onStep: PropTypes.func.isRequired
-  };
 }
 
 const mapStateToProps = (state) => {
