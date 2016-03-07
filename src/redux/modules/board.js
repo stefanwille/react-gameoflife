@@ -15,7 +15,7 @@ export const makeCells = (width, height) => {
   return cells
 }
 
-const setCellActionHandler = (state, action) => {
+const setCell = (state, action) => {
   const {x, y, live} = action.payload
   const oldCell = state.cells[x][y]
   const cells = state.cells.slice()
@@ -26,7 +26,7 @@ const setCellActionHandler = (state, action) => {
   return newState
 }
 
-const randomizeActionHandler = (state, action) => {
+const randomize = (state, action) => {
   const newState = { ...state, cells: makeCells(state.width, state.height) }
   for (let x = 0; x < state.width; x++) {
     for (let y = 0; y < state.height; y++) {
@@ -38,11 +38,11 @@ const randomizeActionHandler = (state, action) => {
   return newState
 }
 
-const clearActionHandler = (state, action) => {
+const clear = (state, action) => {
   return { ...state, cells: makeCells(state.width, state.height) }
 }
 
-const stepActionHandler = (state, action) => {
+const step = (state, action) => {
   const board = state
   const {width, height, cells} = board
   const newCells = makeCells(width, height)
@@ -100,7 +100,7 @@ const aliveCellsAt = (board, x, y) => {
   return board.cells[x][y].live ? 1 : 0
 }
 
-const resizeActionHandler = (state, action) => {
+const resize = (state, action) => {
   const {width, height} = action.payload
   const cells = makeCells(width, height)
   const copyWidth = Math.min(width, state.width)
@@ -114,7 +114,7 @@ const resizeActionHandler = (state, action) => {
   return newState
 }
 
-const initialState = () => {
+const makeInitialState = () => {
   return {
     cells: makeCells(INITIAL_WIDTH, INITIAL_HEIGHT),
     width: INITIAL_WIDTH,
@@ -123,11 +123,11 @@ const initialState = () => {
 }
 
 const ACTION_HANDLERS = {
-  SET_CELL: setCellActionHandler,
-  RANDOMIZE: randomizeActionHandler,
-  STEP: stepActionHandler,
-  RESIZE: resizeActionHandler,
-  CLEAR: clearActionHandler
+  SET_CELL: setCell,
+  RANDOMIZE: randomize,
+  STEP: step,
+  RESIZE: resize,
+  CLEAR: clear
 }
 
 // ------------------------------------
@@ -135,7 +135,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 export default function boardReducer (state, action) {
   if (state === undefined) {
-    state = initialState()
+    state = makeInitialState()
   }
 
   const handler = ACTION_HANDLERS[action.type]
