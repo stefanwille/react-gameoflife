@@ -1,11 +1,27 @@
 export const INITIAL_WIDTH = 40
 export const INITIAL_HEIGHT = 20
+export const INITIAL_CELL_STATE = {live: false, liveCount: 0}
+
+export const makeCells = (width, height) => {
+  const cells = []
+  for (let x = 0; x < width; x++) {
+    const row = []
+    cells.push(row)
+    for (let y = 0; y < height; y++) {
+      row.push(INITIAL_CELL_STATE)
+    }
+  }
+
+  return cells
+}
 
 const setCellActionHandler = (state, action) => {
   const {x, y, live} = action.payload
+  const oldCell = state.cells[x][y]
   const cells = state.cells.slice()
   cells[x] = cells[x].slice()
-  cells[x][y] = live
+  const liveCount = oldCell.liveCount + (live ? 1 : 0)
+  cells[x][y] = {live: live, liveCount: liveCount}
   const newState = { ...state, cells: cells }
   return newState
 }
@@ -14,7 +30,9 @@ const randomizeActionHandler = (state, action) => {
   const newState = { ...state, cells: makeCells(state.width, state.height) }
   for (let x = 0; x < state.width; x++) {
     for (let y = 0; y < state.height; y++) {
-      newState.cells[x][y] = Math.random() > 0.8
+      const live = Math.random() < 0.1
+      const liveCount = live ? 1 : 0
+      newState.cells[x][y] = {live, liveCount}
     }
   }
   return newState
@@ -26,38 +44,39 @@ const clearActionHandler = (state, action) => {
 
 const stepActionHandler = (state, action) => {
   const board = state
-  const {width, height} = board
+  const {width, height, cells} = board
   const newCells = makeCells(width, height)
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < height; y++) {
-      newCells[x][y] = shouldLiveInNextGeneration(board, x, y)
+      stepForCell(x, y, board, cells, newCells)
     }
   }
   const newBoard = {...board, cells: newCells}
   return newBoard
 }
 
-export const makeCells = (width, height) => {
-  const cells = []
-  for (let x = 0; x < width; x++) {
-    const row = []
-    cells.push(row)
-    for (let y = 0; y < height; y++) {
-      row.push(false)
-    }
-  }
-
-  return cells
+const stepForCell = (x, y, board, cells, newCells) => {
+  const newCell = cellInNextGeneration(board, x, y)
+  newCells[x][y] = newCell
+  // console.log('stepForCell', x, y, 'newCells newLive', newLive,
+  // 'liveCount', newLiveCount, 'oldLiveCount', oldLiveCount)
 }
 
-const shouldLiveInNextGeneration = (board, x, y) => {
-  const alive = board.cells[x][y]
+const cellInNextGeneration = (board, x, y) => {
+  const live = board.cells[x][y].live
+  const liveCount = board.cells[x][y].liveCount
   const neighbourCount = neighbours(board, x, y)
-  return shouldCellLiveInNextGeneration(alive, neighbourCount)
+  const newLive = shouldCellLiveInNextGeneration(live, neighbourCount)
+  const newLiveCount = liveCount + (newLive ? 1 : 0)
+  return {live: newLive, liveCount: newLiveCount}
 }
 
-const shouldCellLiveInNextGeneration = (alive, neighbourCount) => {
-  return alive ? (neighbourCount >= 2 && neighbourCount <= 3) : (neighbourCount === 3)
+const shouldCellLiveInNextGeneration = (live, neighbourCount) => {
+  if (live) {
+    return neighbourCount >= 2 && neighbourCount <= 3
+  } else {
+    return neighbourCount === 3
+  }
 }
 
 export const neighbours = (board, x, y) => {
@@ -78,7 +97,7 @@ const aliveCellsAt = (board, x, y) => {
   if (y < 0 || y >= board.height) {
     return 0
   }
-  return board.cells[x][y] ? 1 : 0
+  return board.cells[x][y].live ? 1 : 0
 }
 
 const resizeActionHandler = (state, action) => {

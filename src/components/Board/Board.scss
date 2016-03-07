@@ -1,20 +1,32 @@
 .GameOfLife .Board {
   margin-bottom: 25px;
 
-  table {
-    border-style: solid;
+  .border {
+    display: inline-block;
     border-width: 1px;
+    border-style: none;
+  }
+
+  table {
+    border-width: 1px;
+    border-style: solid;
   }
 
   td {
     width: 20px;
     height: 20px;
+    border-width: 1px;
+    border-style: none;
   }
 
-  td.alive {
+  td.live {
     background-color: black;
     animation-duration: 0.05s;
     animation-name: fadeIn;
+  }
+
+  td.lived {
+    border-style: solid;
   }
 }
 

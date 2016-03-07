@@ -4,16 +4,21 @@ class Cell extends React.Component {
   static propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-    alive: PropTypes.bool.isRequired,
+    live: PropTypes.bool.isRequired,
+    liveCount: PropTypes.number.isRequired,
     drawingCell: PropTypes.bool.isRequired,
     onStartDrawing: PropTypes.func.isRequired,
     onDraw: PropTypes.func.isRequired
   }
 
   render () {
+    let className = this.props.live ? 'live' : ''
+    if (this.props.liveCount > 0) {
+      className += ' lived'
+    }
     return (
       <td
-        className={this.props.alive ? 'alive' : undefined}
+        className={className}
         onMouseDown={this.handleMouseDown}
         onMouseEnter={this.handleMouseEnter} />
     )
@@ -21,7 +26,7 @@ class Cell extends React.Component {
 
   handleMouseDown = (event) => {
     event.preventDefault()
-    this.props.onStartDrawing(this.props.x, this.props.y, !this.props.alive)
+    this.props.onStartDrawing(this.props.x, this.props.y, !this.props.live)
   }
 
   handleMouseEnter = (event) => {

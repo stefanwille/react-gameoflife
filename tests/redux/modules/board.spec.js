@@ -3,7 +3,7 @@ import {default as cellsReducer, makeCells, neighbours, INITIAL_WIDTH, INITIAL_H
 
 describe('(Redux Module) board', function () {
   describe('(Reducer)', function () {
-    it('Should initialize with a 2 dimensional array of falses and width/height', function () {
+    it('Should initialize with a 2 dimensional array of {live, liveCount} and width/height', function () {
       const initialState = cellsReducer(undefined, {})
       expect(initialState).to.be.a('object')
       expect(initialState.cells.length).to.equal(INITIAL_WIDTH)
@@ -26,9 +26,9 @@ describe('(Redux Module) board', function () {
   describe('(Action Handler) SET_CELL', function () {
     it('Should set the state of a cell.', function () {
       let state = cellsReducer(undefined, {})
-      expect(state.cells[0][0]).to.equal(false)
+      expect(state.cells[0][0]).to.deep.equal({live: false, liveCount: 0})
       state = cellsReducer(state, setCell(0, 0, true))
-      expect(state.cells[0][0]).to.equal(true)
+      expect(state.cells[0][0]).to.deep.equal({live: true, liveCount: 1})
     })
   })
 
@@ -62,9 +62,9 @@ describe('(Redux Module) board', function () {
   describe('(Action Handler) CLEAR', function () {
     it('Should randomize the cells.', function () {
       let state = cellsReducer(undefined, {})
-      state.cells[0][0] = true
+      state.cells[0][0] = {live: true, liveCount: 3}
       state = cellsReducer(state, clear())
-      expect(state.cells[0][0]).to.equal(false)
+      expect(state.cells[0][0]).to.deep.equal({live: false, liveCount: 0})
     })
   })
 
@@ -82,9 +82,27 @@ describe('(Redux Module) board', function () {
     it('Should calculate the numbers of live neighbours', function () {
       console.log('makeCells', makeCells)
       const cells = makeCells(10, 10)
-      cells[0][1] = true
-      cells[1][1] = true
-      cells[2][1] = true
+      cells[0][1] = {live: true, liveCount: 1}
+      cells[1][1] = {live: true, liveCount: 1}
+      cells[2][1] = {live: true, liveCount: 1}
+      const board = {
+        cells,
+        width: 10,
+        height: 10
+      }
+      expect(neighbours(board, 0, 1)).to.equal(1)
+      expect(neighbours(board, 1, 1)).to.equal(2)
+      expect(neighbours(board, 2, 1)).to.equal(1)
+    })
+  })
+
+  describe('(Action Handler impl) neighbours', function () {
+    it('Should calculate the numbers of live neighbours', function () {
+      console.log('makeCells', makeCells)
+      const cells = makeCells(10, 10)
+      cells[0][1] = {live: true, liveCount: 1}
+      cells[1][1] = {live: true, liveCount: 1}
+      cells[2][1] = {live: true, liveCount: 1}
       const board = {
         cells,
         width: 10,
@@ -100,15 +118,15 @@ describe('(Redux Module) board', function () {
     it('Should step forward one generation in game of life.', function () {
       let state = cellsReducer(undefined, {})
       // Blinker pattern
-      state.cells[0][1] = true
-      state.cells[1][1] = true
-      state.cells[2][1] = true
+      state.cells[0][1] = {live: true, liveCount: 1}
+      state.cells[1][1] = {live: true, liveCount: 1}
+      state.cells[2][1] = {live: true, liveCount: 1}
       state = cellsReducer(state, step())
-      expect(state.cells[0][1]).to.equal(false)
-      expect(state.cells[1][1]).to.equal(true)
-      expect(state.cells[2][1]).to.equal(false)
-      expect(state.cells[1][0]).to.equal(true)
-      expect(state.cells[1][2]).to.equal(true)
+      expect(state.cells[0][1]).to.deep.equal({live: false, liveCount: 1})
+      expect(state.cells[1][1]).to.deep.equal({live: true, liveCount: 2})
+      expect(state.cells[2][1]).to.deep.equal({live: false, liveCount: 1})
+      expect(state.cells[1][0]).to.deep.equal({live: true, liveCount: 1})
+      expect(state.cells[1][2]).to.deep.equal({live: true, liveCount: 1})
     })
   })
 

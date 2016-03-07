@@ -12,15 +12,20 @@ let Controls = ({playing, speed, onPlay, onPause, onStep, onRandomize, onClear})
     console.log(event.target.value)
   }
 
-  const playOrPauseButton = playing ? (
-    <a type='submit' className='btn btn-default' onClick={handlePauseOnClick}>
-      <span className='glyphicon glyphicon-pause'></span> Pause
-    </a>
-  ) : (
-    <a type='submit' className='btn btn-default' onClick={handlePlayOnClick}>
-      <span className='glyphicon glyphicon-play'></span> Play
-    </a>
-  )
+  let playOrPauseButton
+  if (playing) {
+    playOrPauseButton = (
+      <a type='submit' className='btn btn-default' onClick={handlePauseOnClick}>
+        <span className='glyphicon glyphicon-pause'></span> Pause
+      </a>
+    )
+  } else {
+    playOrPauseButton = (
+      <a type='submit' className='btn btn-default' onClick={handlePlayOnClick}>
+        <span className='glyphicon glyphicon-play'></span> Play
+      </a>
+    )
+  }
 
   return (
     <div className='row controls'>
@@ -39,9 +44,9 @@ let Controls = ({playing, speed, onPlay, onPause, onStep, onRandomize, onClear})
           <select className='form-control' onChange={handlePatternSelected}>
             <option value={1}>Pattern</option>
             <option value='glider'>Glider</option>
-            <option value={3}></option>
-            <option value={4}></option>
-            <option value={5}></option>
+            <option value={3}>Big Glider</option>
+            <option value={4}>Canon</option>
+            <option value={5}>Sneeker</option>
           </select>
           {' '}
           <a type='submit' className='btn btn-default' onClick={onClear}>

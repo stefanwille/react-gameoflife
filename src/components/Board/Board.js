@@ -23,14 +23,16 @@ class BoardPresentation extends React.Component {
     for (let y = 0; y < height; y++) {
       const cellElements = []
       for (let x = 0; x < width; x++) {
-        const alive = cells[x][y]
+        const live = cells[x][y].live
+        const liveCount = cells[x][y].liveCount
         const key = x*10000+y
         cellElements.push(
           <Cell
             key={key}
             x={x}
             y={y}
-            alive={alive}
+            live={live}
+            liveCount={liveCount}
             drawingCell={drawingCell}
             onStartDrawing={onStartDrawing}
             onDraw={onDraw}
@@ -45,11 +47,13 @@ class BoardPresentation extends React.Component {
     return (
       <div className='row Board'>
         <div className='col-md-12'>
-          <table>
-            <tbody>
-              {rowsWithCells}
-            </tbody>
-          </table>
+          <div className='border'>
+            <table>
+              <tbody>
+                {rowsWithCells}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     )
