@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {resize, setSpeed} from 'redux/modules/actionCreators'
 
-// import classes from './Dimensions.scss'
+import './Dimensions.scss'
 
 class DimensionsPresentation extends React.Component {
   static propTypes = {
@@ -15,7 +15,7 @@ class DimensionsPresentation extends React.Component {
 
   render () {
     return (
-      <div className='row dimensions'>
+      <div className='row Dimensions'>
 
         <div className='col-md-5'>
           <div className='panel panel-default'>

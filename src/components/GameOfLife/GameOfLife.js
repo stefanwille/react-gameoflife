@@ -6,11 +6,11 @@ import Board from 'components/Board/Board'
 import Dimensions from 'components/Dimensions/Dimensions'
 import PlayLoop from 'components/PlayLoop/PlayLoop'
 
-import classes from './GameOfLife.scss'
+import './GameOfLife.scss'
 
 const GameOfLife = () => {
   return (
-    <div className={classes.gameOfLife}>
+    <div className='GameOfLife'>
 
       <HeadLine />
       <Controls />

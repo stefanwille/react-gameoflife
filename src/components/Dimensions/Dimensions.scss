@@ -1,0 +1,15 @@
+.GameOfLife .Dimensions {
+  input.form-control {
+    width: 80px;
+  }
+
+  input[type='range'] {
+    min-width: 200px;
+    height: 22px;
+  }
+
+  .speed p.form-control-static {
+    min-width: 28px;
+    text-align: right;
+  }
+}

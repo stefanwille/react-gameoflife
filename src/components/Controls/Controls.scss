@@ -1,1 +1,18 @@
 
+.GameOfLife {
+  .controls {
+    margin-bottom: 25px;
+
+    .btn {
+      min-width: 45px;
+    }
+
+    .play {
+      min-width: 85px;
+    }
+
+    .pause {
+      min-width: 85px;
+    }
+  }
+}

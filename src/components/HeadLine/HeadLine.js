@@ -1,10 +1,10 @@
 import React from 'react'
 
-import classes from './HeadLine.scss'
+import './HeadLine.scss'
 
 const HeadLine = () => {
   return (
-    <div className={classes.headline}>
+    <div className='HeadLine'>
       <div className='row'>
         <div className='col-md-12'>
           <h1>Game of Life</h1>

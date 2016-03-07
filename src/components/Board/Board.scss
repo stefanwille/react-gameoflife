@@ -1,0 +1,29 @@
+.GameOfLife .Board {
+  margin-bottom: 25px;
+
+  table {
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  td {
+    width: 20px;
+    height: 20px;
+  }
+
+  td.alive {
+    background-color: black;
+    animation-duration: 0.05s;
+    animation-name: fadeIn;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}

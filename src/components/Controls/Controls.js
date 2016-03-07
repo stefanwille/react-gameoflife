@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-// import classes from './GameOfLife.scss'
+import './Controls.scss'
 
 import {play, pause, step, randomize, clear} from 'redux/modules/actionCreators'
 

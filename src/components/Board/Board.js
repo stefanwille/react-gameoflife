@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import Cell from 'components/Cell/Cell'
 import {setCell, setDrawingCell} from 'redux/modules/actionCreators'
 
-// import classes from './GameOfLife.scss'
+import './Board.scss'
 
 class BoardPresentation extends React.Component {
   static propTypes = {
@@ -43,7 +43,7 @@ class BoardPresentation extends React.Component {
     }
 
     return (
-      <div className='row cells'>
+      <div className='row Board'>
         <div className='col-md-12'>
           <table>
             <tbody>
