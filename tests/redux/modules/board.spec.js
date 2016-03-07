@@ -1,10 +1,10 @@
 import {setCell, step, randomize, resize, clear} from 'redux/modules/actionCreators'
-import {default as cellsReducer, makeCells, neighbours, INITIAL_WIDTH, INITIAL_HEIGHT} from 'redux/modules/board'
+import {default as boardReducer, makeCells, neighbours, INITIAL_WIDTH, INITIAL_HEIGHT} from 'redux/modules/board'
 
 describe('(Redux Module) board', function () {
   describe('(Reducer)', function () {
     it('Should initialize with a 2 dimensional array of {live, liveCount} and width/height', function () {
-      const initialState = cellsReducer(undefined, {})
+      const initialState = boardReducer(undefined, {})
       expect(initialState).to.be.a('object')
       expect(initialState.cells.length).to.equal(INITIAL_WIDTH)
       expect(initialState.width).to.equal(INITIAL_WIDTH)
@@ -25,9 +25,9 @@ describe('(Redux Module) board', function () {
 
   describe('(Action Handler) SET_CELL', function () {
     it('Should set the state of a cell.', function () {
-      let state = cellsReducer(undefined, {})
+      let state = boardReducer(undefined, {})
       expect(state.cells[0][0]).to.deep.equal({live: false, liveCount: 0})
-      state = cellsReducer(state, setCell(0, 0, true))
+      state = boardReducer(state, setCell(0, 0, true))
       expect(state.cells[0][0]).to.deep.equal({live: true, liveCount: 1})
     })
   })
@@ -44,8 +44,8 @@ describe('(Redux Module) board', function () {
 
   describe('(Action Handler) RANDOMIZE', function () {
     it('Should randomize the cells.', function () {
-      let state = cellsReducer(undefined, {})
-      cellsReducer(state, randomize())
+      let state = boardReducer(undefined, {})
+      boardReducer(state, randomize())
     })
   })
 
@@ -61,9 +61,9 @@ describe('(Redux Module) board', function () {
 
   describe('(Action Handler) CLEAR', function () {
     it('Should randomize the cells.', function () {
-      let state = cellsReducer(undefined, {})
+      let state = boardReducer(undefined, {})
       state.cells[0][0] = {live: true, liveCount: 3}
-      state = cellsReducer(state, clear())
+      state = boardReducer(state, clear())
       expect(state.cells[0][0]).to.deep.equal({live: false, liveCount: 0})
     })
   })
@@ -116,12 +116,12 @@ describe('(Redux Module) board', function () {
 
   describe('(Action Handler) STEP', function () {
     it('Should step forward one generation in game of life.', function () {
-      let state = cellsReducer(undefined, {})
+      let state = boardReducer(undefined, {})
       // Blinker pattern
       state.cells[0][1] = {live: true, liveCount: 1}
       state.cells[1][1] = {live: true, liveCount: 1}
       state.cells[2][1] = {live: true, liveCount: 1}
-      state = cellsReducer(state, step())
+      state = boardReducer(state, step())
       expect(state.cells[0][1]).to.deep.equal({live: false, liveCount: 1})
       expect(state.cells[1][1]).to.deep.equal({live: true, liveCount: 2})
       expect(state.cells[2][1]).to.deep.equal({live: false, liveCount: 1})
@@ -143,10 +143,10 @@ describe('(Redux Module) board', function () {
 
   describe('(Action Handler) RESIZE', function () {
     it('Should change the size of the board.', function () {
-      let state = cellsReducer(undefined, {})
+      let state = boardReducer(undefined, {})
       expect(state.width).to.equal(INITIAL_WIDTH)
       expect(state.height).to.equal(INITIAL_HEIGHT)
-      state = cellsReducer(state, resize(11, 12))
+      state = boardReducer(state, resize(11, 12))
       expect(state.width).to.equal(11)
       expect(state.height).to.equal(12)
       expect(state.cells.length).to.equal(11)
